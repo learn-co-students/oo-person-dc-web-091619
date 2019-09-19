@@ -1,4 +1,8 @@
 class Person
+
+    # made a reader for name because it shouldn't be modified,
+    # made a reader for happiness & hygiene because I want customized writer for those two.
+
     attr_reader :name, :happiness, :hygiene
     attr_accessor :bank_account, :get_paid
 
@@ -8,6 +12,9 @@ class Person
         @happiness = 8
         @hygiene = 8
     end
+
+    # this was hard one, since happiness and hygiene points should be in 0 to 10,
+    # I needed a customized writer for those two.
 
     def happiness=(happiness)
         if happiness > 10
@@ -31,7 +38,7 @@ class Person
         if @hygiene > 7
             return true
         end
-        return false
+        return false  # this line was needed because other than that, it would have returned nil
     end
 
     def happy?
@@ -43,17 +50,21 @@ class Person
     
     def get_paid(salary)
         @bank_account += salary
-        "all about the benjamins"
+        "all about the benjamins"  # didn't need puts because test asked it to "return" the message
+                                   # not print it out
     end
 
     def take_bath
-        self.hygiene = @hygiene + 4
+        self.hygiene += 4
         "♪ Rub-a-dub just relaxing in the tub ♫"
     end
 
+
+    # it had to be self.happiness += 2, not @happiness += 2 because we have a customized
+    # writer for that and that needed to be called with ".happiness="
     def work_out
-        self.happiness = @happiness + 2
-        self.hygiene = @hygiene -3
+        self.happiness += 2
+        self.hygiene -= 3
         "♪ another one bites the dust ♫"
     end
 
@@ -65,7 +76,7 @@ class Person
 
     def start_conversation(start_person, topic)
         if topic == "politics"
-            self.happiness = @happiness - 2
+            self.happiness -= 2
             start_person.happiness -= 2
             "blah blah partisan blah lobbyist"
         elsif topic == "weather"
